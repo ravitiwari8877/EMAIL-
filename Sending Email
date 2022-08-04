@@ -1,0 +1,33 @@
+import imp
+from mimetypes import MimeTypes
+import smtplib
+from email import *
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+
+server = smtplib.SMTP('smtp-relay.sendinblue.com', 587)
+
+server.ehlo()
+
+server.login('LoginID', 'Password')
+
+'''
+with open('password.txt', 'r)
+    password = f.read
+    
+server.login('rtravi8877@gmail.com, password)'''
+
+msg = MIMEMultipart()
+msg['From'] = 'Sender mail id'
+msg['To'] = 'Receiver mail id'
+
+msg['Subject'] = 'Just a Test'
+
+with open('message.txt', 'r') as f:
+    message = f.read()
+
+msg.attach(MIMEText(message,'plain'))
+
+text = msg.as_string()
+server.sendmail('sender mail id', 'receiver mail id',text)
